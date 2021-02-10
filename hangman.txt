@@ -1,0 +1,42 @@
+from random import choice
+
+print("H A N G M A N")
+words = ['python', 'java', 'kotlin', 'javascript']
+word = choice(words)
+hidd_word = list('-' * len(word))
+feil_trys = 8
+user_input =([])
+while True:
+    option = input('Type "play" to play the game, "exit" to quit:')
+    if option == 'play':
+        break
+    elif option == 'exit':
+        print()
+    else:
+        pass
+        continue
+while True:
+    print(f"\n{''.join(hidd_word)}")
+    letter = input("Input a letter:")
+    if letter in hidd_word or letter not in word:
+        if len(letter) != 1:
+            print("You should input a single letter")
+        if not letter.islower() and len(letter) == 1 or not letter.isascii() and len(letter) == 1  :
+            print("Please enter a lowercase English letter")
+        if letter not in word and letter not in user_input and len(letter) == 1 and letter.islower():
+            feil_trys -= 1
+        if letter in hidd_word or letter in user_input:
+            print("You've already guessed this letter")
+        if letter not in word and len(letter) == 1 and letter.islower() and feil_trys >= 0 and letter not in user_input:
+            print("That letter doesn't appear in the word")
+            user_input += letter
+        if not feil_trys:
+            print("You lost!")
+            break
+        continue
+    for i, w in enumerate(word):
+        if letter == w:
+            hidd_word[i] = letter
+    if ''.join(hidd_word) == word:
+        print(f"You guessed the word {word}!\nYou survived!")
+        break
